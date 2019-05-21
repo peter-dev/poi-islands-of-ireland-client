@@ -1,0 +1,26 @@
+<template>
+  <require from="../resources/elements/error-message"></require>
+
+  <form class="ui form" submit.delegate="login()">
+    <h3 class="ui header">Login</h3>
+    <div class="required field">
+      <label>Email</label>
+      <div class="ui left icon input">
+        <input placeholder="Email" type="email" name="email" value.bind="email" required>
+        <i class="user icon"></i>
+      </div>
+    </div>
+    <div class="required field">
+      <label>Password</label>
+      <div class="ui left icon input">
+        <input placeholder="Password" type="password" name="password" value.bind="password" required>
+        <i class="lock icon"></i>
+      </div>
+    </div>
+    <button class="ui blue submit button">Login</button>
+  </form>
+
+  <div class="ui basic segment">
+    <error-message err-message.bind="errMessage" is-error.bind="isError"></error-message>
+  </div>
+</template>
