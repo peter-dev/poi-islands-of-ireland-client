@@ -2,14 +2,13 @@ import { inject, Aurelia } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
 import { HttpClient } from 'aurelia-http-client';
+import { Region } from './api-types';
 
 @inject(HttpClient, Aurelia, Router)
 export class ApiService {
-  constructor(
-    private httpClient: HttpClient,
-    private au: Aurelia,
-    private router: Router
-  ) {
+  regions: Region[] = [];
+
+  constructor(private httpClient: HttpClient, private au: Aurelia, private router: Router) {
     httpClient.configure(http => {
       http.withBaseUrl('http://localhost:3000');
     });
@@ -55,6 +54,7 @@ export class ApiService {
           configuration.withHeader('Authorization', 'bearer ' + status.token);
         });
         localStorage.apitoken = JSON.stringify(response.content);
+        await this.getRegions();
         this.changeRouter(PLATFORM.moduleName('app'));
         return true;
       }
@@ -82,6 +82,29 @@ export class ApiService {
         http.withHeader('Authorization', 'bearer ' + auth.token);
       });
       this.changeRouter(PLATFORM.moduleName('app'));
+    }
+  }
+
+  async getRegions() {
+    try {
+      const response = await this.httpClient.get('/api/regions');
+      this.regions = response.content;
+    } catch (err) {
+      const errResponse = await err.content;
+      console.log('Error: ' + JSON.stringify(errResponse));
+    }
+  }
+
+  async getIslandsByRegion(regionId) {
+    try {
+      const url = '/api/regions/{id}/islands'.replace('{id}', regionId);
+      const response = await this.httpClient.get(url);
+      const islands = response.content;
+      return islands;
+    } catch (err) {
+      const errResponse = await err.content;
+      console.log('Error: ' + JSON.stringify(errResponse));
+      //return errResponse;
     }
   }
 }

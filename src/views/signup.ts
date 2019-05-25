@@ -33,5 +33,4 @@ export class Signup {
     this.isError = false;
     this.errMessage = '';
   }
-
 }

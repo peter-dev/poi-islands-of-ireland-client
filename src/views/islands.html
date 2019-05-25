@@ -8,13 +8,26 @@
             <i class="search icon"></i>
             Find Island
           </div>
-          <div class="field">
-            <div class="ui category search">
-              <div class="ui icon input">
-                <input class="prompt" type="text" placeholder="Search islands...">
-                <i class="search icon"></i>
+          <div class="fields">
+            <div class="ui fluid two item menu">
+              <div class="ui simple dropdown item">
+                ${selectedRegionName}
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <div class="item" repeat.for="region of regions" click.delegate="updateSelectedRegion(region)">
+                    ${region.name}
+                  </div>
+                </div>
               </div>
-              <div class="results"></div>
+              <div class="ui simple dropdown item ${enableIslandsDropdown ? '' : 'disabled'}">
+                ${selectedIslandName}
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <div class="item" repeat.for="island of islands" click.delegate="updateSelectedIsland(island)">
+                    ${island.name}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -23,9 +36,26 @@
             <i class="world icon"></i>
             Add New Island
           </div>
-          <a href="/" class="ui primary button">
+          <a href="/#/" class="ui primary button">
             Add POI
           </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div if.bind="selectedIsland" class="ui segment">
+    <div class="ui items">
+      <div class="item">
+        <div class="content">
+          <h3 class="ui header"><span>${selectedIsland.name}</span></h3>
+          <div class="description">
+            <p><span>${selectedIsland.description}</span></p>
+          </div>
+          <div class="extra">
+            <a href="/#/" class="ui right floated button">Edit</a>
+            <i class="globe icon"></i>
+            <span>Latitude: ${selectedIsland.location.lat}, Longitude: ${selectedIsland.location.lng}</span>
+          </div>
         </div>
       </div>
     </div>
