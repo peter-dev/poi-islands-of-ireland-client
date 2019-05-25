@@ -107,4 +107,25 @@ export class ApiService {
       //return errResponse;
     }
   }
+
+  async addIsland(name: string, description: string, lat: number, lng: number, regionId: string) {
+    const island = {
+      name: name,
+      description: description,
+      location: {
+        lat: lat,
+        lng: lng
+      }
+    };
+    try {
+      const response = await this.httpClient.post('/api/regions/' + regionId + '/islands', island);
+      const createdIsland = await response.content;
+      console.log('Created island: ' + JSON.stringify(createdIsland));
+      return createdIsland;
+    } catch (err) {
+      const errResponse = await err.content;
+      console.log('Error: ' + JSON.stringify(errResponse));
+      return errResponse;
+    }
+  }
 }

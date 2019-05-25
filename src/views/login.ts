@@ -3,8 +3,8 @@ import { ApiService } from '../services/api-service';
 
 @inject(ApiService)
 export class Login {
-  email = 'marge@simpson.com';
-  password = 'secret';
+  email: string = 'marge@simpson.com';
+  password: string = 'secret';
   isError: boolean;
   errMessage: string;
 

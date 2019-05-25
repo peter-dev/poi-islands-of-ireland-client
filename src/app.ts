@@ -14,6 +14,13 @@ export class App {
         title: 'Dashboard'
       },
       {
+        route: ['create'],
+        name: 'Create',
+        moduleId: PLATFORM.moduleName('views/create'),
+        nav: false,
+        title: 'Add Island'
+      },
+      {
         route: 'logout',
         name: 'Logout',
         moduleId: PLATFORM.moduleName('views/logout'),

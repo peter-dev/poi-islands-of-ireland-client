@@ -1,6 +1,6 @@
 import { bindable } from 'aurelia-framework';
 
-export class ErrorMessage {
+export class SuccessMessage {
   @bindable
-  errMessage: string;
+  successMessage: string;
 }

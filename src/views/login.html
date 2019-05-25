@@ -20,7 +20,5 @@
     <button class="ui blue submit button">Login</button>
   </form>
 
-  <div class="ui basic segment">
-    <error-message err-message.bind="errMessage" is-error.bind="isError"></error-message>
-  </div>
+  <error-message if.bind="isError" err-message.bind="errMessage"></error-message>
 </template>

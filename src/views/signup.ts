@@ -3,10 +3,10 @@ import { ApiService } from '../services/api-service';
 
 @inject(ApiService)
 export class Signup {
-  firstName = 'Marge';
-  lastName: string;
-  email = 'marge@simpson.com';
-  password = 'secret';
+  firstName: string = 'Marge';
+  lastName: string = 'Simpson';
+  email: string = 'marge@simpson.com';
+  password: string = 'secret';
   isError: boolean;
   errMessage: string;
 

@@ -4,9 +4,9 @@ import { Region, Island } from '../services/api-types';
 
 @inject(ApiService)
 export class Islands {
-  regions: Region[] = [];
-  islands: Island[] = [];
-  enableIslandsDropdown: boolean = false;
+  regions: Region[];
+  islands: Island[];
+  enableIslandsDropdown: boolean;
   selectedRegionName: string = 'Select Region...';
   selectedIslandName: string = 'Select Island...';
   selectedIsland: Island = null;

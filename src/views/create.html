@@ -1,0 +1,43 @@
+<template>
+  <require from="../resources/elements/success-message"></require>
+  <require from="../resources/elements/error-message"></require>
+
+  <success-message if.bind="isSuccess" success-message.bind="successMessage"></success-message>
+
+  <form class="ui form" submit.delegate="addIsland()">
+    <h3 class="ui header">Add Island</h3>
+    <div class="two fields">
+      <div class="required field">
+        <label>Region (category)</label>
+        <select class="ui simple dropdown" value.bind="regionId" required>
+          <option value="" model.bind="null">Choose...</option>
+          <option repeat.for="region of regions"
+                  model.bind="region._id">
+            ${region.name}
+          </option>
+        </select>
+      </div>
+      <div class="required field">
+        <label>Name</label>
+        <input placeholder="Name" type="text" value.bind="name" required>
+      </div>
+    </div>
+    <div class="required field">
+      <label>Description</label>
+      <textarea placeholder="Description" value.bind="description" required></textarea>
+    </div>
+    <div class="two fields">
+      <div class="required field">
+        <label>Latitude</label>
+        <input placeholder="Latitude" type="number" step="any" value.bind="lat" required>
+      </div>
+      <div class="required field">
+        <label>Longitude</label>
+        <input placeholder="Longitude" type="number" step="any" value.bind="lng" required>
+      </div>
+    </div>
+    <button class="ui blue submit button">Submit</button>
+  </form>
+
+  <error-message if.bind="isError" err-message.bind="errMessage"></error-message>
+</template>
