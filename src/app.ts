@@ -21,6 +21,13 @@ export class App {
         title: 'Add Island'
       },
       {
+        route: ['edit/:id'],
+        name: 'Edit',
+        moduleId: PLATFORM.moduleName('views/edit'),
+        nav: false,
+        title: 'Edit Island'
+      },
+      {
         route: 'logout',
         name: 'Logout',
         moduleId: PLATFORM.moduleName('views/logout'),

@@ -1,15 +1,17 @@
 import { inject } from 'aurelia-framework';
 import { ApiService } from '../services/api-service';
-import { Region } from '../services/api-types';
+import { Region, Island } from '../services/api-types';
 
 @inject(ApiService)
-export class Create {
+export class Edit {
   regions: Region[];
   name: string;
   description: string;
   lat: number;
   lng: number;
   regionId: string = null;
+
+  originalIsland: Island = null;
 
   isError: boolean;
   errMessage: string;
@@ -20,13 +22,15 @@ export class Create {
     this.regions = this.apiService.regions;
   }
 
-  async addIsland() {
-    console.log(`Trying to create new POI '${this.name}'`);
-    const responseCreate = await this.apiService.addIsland(
+  async updateIsland() {
+    console.log(`Trying to update POI '${this.name}'`);
+    const responseCreate = await this.apiService.updateIsland(
       this.name,
       this.description,
       this.lat,
       this.lng,
+      this.originalIsland.createdBy,
+      this.originalIsland._id,
       this.regionId
     );
     if (responseCreate.error) {
@@ -37,15 +41,9 @@ export class Create {
       return;
     }
     this.isSuccess = true;
-    this.successMessage = `Island '${responseCreate.name}' has been created`;
+    this.successMessage = `Island '${responseCreate.name}' has been updated`;
     this.isError = false;
     this.errMessage = '';
-    // reset all fields
-    this.name = null;
-    this.description = null;
-    this.lat = null;
-    this.lng = null;
-    this.regionId = null;
     return;
   }
 
@@ -54,5 +52,14 @@ export class Create {
     this.isSuccess = false;
     this.errMessage = '';
     this.successMessage = '';
+  }
+
+  async activate(params: { id: any; }) {
+    this.originalIsland = await this.apiService.getIslandById(params.id);
+    this.name = this.originalIsland.name;
+    this.description = this.originalIsland.description;
+    this.lat = this.originalIsland.location.lat;
+    this.lng = this.originalIsland.location.lng;
+    this.regionId = this.originalIsland.region;
   }
 }

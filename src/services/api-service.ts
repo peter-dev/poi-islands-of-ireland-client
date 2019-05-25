@@ -2,7 +2,7 @@ import { inject, Aurelia } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
 import { HttpClient } from 'aurelia-http-client';
-import { Region } from './api-types';
+import { Island, Region } from './api-types';
 
 @inject(HttpClient, Aurelia, Router)
 export class ApiService {
@@ -99,8 +99,19 @@ export class ApiService {
     try {
       const url = '/api/regions/{id}/islands'.replace('{id}', regionId);
       const response = await this.httpClient.get(url);
-      const islands = response.content;
-      return islands;
+      return response.content;
+    } catch (err) {
+      const errResponse = await err.content;
+      console.log('Error: ' + JSON.stringify(errResponse));
+      //return errResponse;
+    }
+  }
+
+  async getIslandById(islandId) {
+    try {
+      const url = '/api/islands/{id}'.replace('{id}', islandId);
+      const response = await this.httpClient.get(url);
+      return response.content;
     } catch (err) {
       const errResponse = await err.content;
       console.log('Error: ' + JSON.stringify(errResponse));
@@ -122,6 +133,36 @@ export class ApiService {
       const createdIsland = await response.content;
       console.log('Created island: ' + JSON.stringify(createdIsland));
       return createdIsland;
+    } catch (err) {
+      const errResponse = await err.content;
+      console.log('Error: ' + JSON.stringify(errResponse));
+      return errResponse;
+    }
+  }
+
+  async updateIsland(
+    name: string,
+    description: string,
+    lat: number,
+    lng: number,
+    createdBy: string,
+    islandId: string,
+    regionId: string
+  ) {
+    const island = {
+      name: name,
+      description: description,
+      createdBy: createdBy,
+      location: {
+        lat: lat,
+        lng: lng
+      }
+    };
+    try {
+      const response = await this.httpClient.put('/api/regions/' + regionId + '/islands/' + islandId, island);
+      const updatedIsland = await response.content;
+      console.log('Updated island: ' + JSON.stringify(updatedIsland));
+      return updatedIsland;
     } catch (err) {
       const errResponse = await err.content;
       console.log('Error: ' + JSON.stringify(errResponse));

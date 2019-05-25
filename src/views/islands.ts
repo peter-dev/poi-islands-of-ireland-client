@@ -1,4 +1,4 @@
-import { inject, TaskQueue } from 'aurelia-framework';
+import { inject } from 'aurelia-framework';
 import { ApiService } from '../services/api-service';
 import { Region, Island } from '../services/api-types';
 
