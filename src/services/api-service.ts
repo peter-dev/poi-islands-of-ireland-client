@@ -169,4 +169,33 @@ export class ApiService {
       return errResponse;
     }
   }
+
+  async addRating(score: number, islandId: string) {
+    const rating = {
+      score: score,
+      island: islandId
+    };
+    try {
+      const response = await this.httpClient.post('/api/ratings', rating);
+      const createdRating = await response.content;
+      console.log('Submitted rating: ' + JSON.stringify(createdRating));
+      return createdRating;
+    } catch (err) {
+      const errResponse = await err.content;
+      console.log('Error: ' + JSON.stringify(errResponse));
+      return errResponse;
+    }
+  }
+
+  async getRatingsByIsland(islandId) {
+    try {
+      const url = '/api/islands/{id}/ratings'.replace('{id}', islandId);
+      const response = await this.httpClient.get(url);
+      return response.content;
+    } catch (err) {
+      const errResponse = await err.content;
+      console.log('Error: ' + JSON.stringify(errResponse));
+      //return errResponse;
+    }
+  }
 }

@@ -47,10 +47,16 @@
     <div class="ui items">
       <div class="item">
         <div class="content">
+          <i repeat.for="i of 5" class="right floated like icon" click.delegate="rateIsland(5-i)"></i>
           <h3 class="ui header"><span>${selectedIsland.name}</span></h3>
+          <div class="meta">
+            <i class="check icon ${ratings.length > 0 ? 'green' : 'red'}"></i>
+            <span>${ratings.length} Votes</span>
+            <span if.bind="avgRating != null">Average Rating ${avgRating}</span>
+          </div>
           <div class="description">
             <p><span>${selectedIsland.description}</span></p>
-          </div>
+          </div><div class="ui star rating" data-rating="3"></div>
           <div class="extra">
             <a href="/#/edit/${selectedIsland._id}" class="ui right floated button">Edit</a>
             <i class="globe icon"></i>

@@ -31,3 +31,10 @@ export interface Island {
   createdAt: string,
   updatedAt: string
 }
+
+export interface Rating {
+  _id: string,
+  score: number,
+  user: string,
+  island: string
+}
