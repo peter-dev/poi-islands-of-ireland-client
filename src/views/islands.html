@@ -1,4 +1,5 @@
 <template>
+  <require from="../resources/elements/island-map"></require>
   <div class="ui placeholder segment">
     <div class="ui two column stackable center aligned grid">
       <div class="ui vertical divider">Or</div>
@@ -65,5 +66,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div if.bind="selectedIsland" class="ui segment">
+    <island-map selected-island.bind="selectedIsland"></island-map>
   </div>
 </template>
